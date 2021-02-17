@@ -7,18 +7,18 @@ export class AppService {
     return 'Hello World!';
   }
 
-  @Cron(CronExpression.EVERY_WEEK)
+  @Cron(CronExpression.EVERY_5_SECONDS, { name: 'greet' })
   handleCron() {
     console.log('您好');
   }
 
   @Interval(1000)
   handleInterval() {
-    console.log('嘀嗒');
+    // console.log('嘀嗒');
   }
 
   @Timeout(3000)
   handleTimeout() {
-    console.log('卡嘣');
+    // console.log('卡嘣');
   }
 }
