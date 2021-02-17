@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { SchedulerRegistry } from '@nestjs/schedule';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { CronExpression, SchedulerRegistry } from '@nestjs/schedule';
+import { CronJob } from 'cron';
 import { AppService } from './app.service';
 
 @Controller()
@@ -30,5 +31,22 @@ export class AppController {
     if (action === 'start') {
       greet.start();
     }
+  }
+
+  @Post('/cron')
+  addCron(@Body() body: any) {
+    const { name } = body;
+    const job = new CronJob(CronExpression.EVERY_SECOND, () => {
+      console.log('你好，', name);
+    });
+
+    this.schedulerRegistry.addCronJob(name, job);
+
+    job.start();
+  }
+
+  @Delete('/cron/:name')
+  deleteCron(@Param('name') name: string) {
+    this.schedulerRegistry.deleteCronJob(name);
   }
 }
