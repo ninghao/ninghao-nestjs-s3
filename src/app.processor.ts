@@ -1,6 +1,8 @@
 import {
   OnQueueActive,
   OnQueueCompleted,
+  OnQueuePaused,
+  OnQueueResumed,
   Process,
   Processor,
 } from '@nestjs/bull';
@@ -22,5 +24,15 @@ export class AppProcessor {
   @OnQueueCompleted()
   onCompleted(job: Job, result: any) {
     console.log(`🏝  任务完成：${job.name} (${job.id})，${result}`);
+  }
+
+  @OnQueuePaused()
+  onPaused() {
+    console.log('🚧 队列暂停了');
+  }
+
+  @OnQueueResumed()
+  onResumed(job: Job) {
+    console.log('🏗 队列恢复了');
   }
 }

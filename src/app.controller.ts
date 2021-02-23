@@ -23,4 +23,14 @@ export class AppController {
 
     console.log(job);
   }
+
+  @Post('pause-queue')
+  async pauseQueue() {
+    this.appQueue.pause();
+  }
+
+  @Post('resume-queue')
+  async resumeQueue() {
+    this.appQueue.resume();
+  }
 }
