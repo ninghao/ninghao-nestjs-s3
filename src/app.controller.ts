@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Permissions } from './permissions.decorator';
 import { Roles } from './roles.decorator';
 
 @Controller()
@@ -15,5 +16,11 @@ export class AppController {
   @Roles('admin', 'manager')
   getAdmin() {
     return '👽';
+  }
+
+  @Get('jurassic-park')
+  @Permissions('visit_jurassic_park')
+  getJurassicPark() {
+    return '🦖';
   }
 }
